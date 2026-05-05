@@ -17,3 +17,26 @@ from app.tax_risk_agent.agent.state_machine import AgentState
 from app.tax_risk_agent.core.llm_client import LLMClient, OfflineLLMClient
 from app.tax_risk_agent.data.database import TaxRiskDatabase
 from app.tax_risk_agent.models.domain import DiagnosticRequest, DiagnosticResult, Evidence, RiskFinding, RiskLevel
+from app.tax_risk_agent.reports.charting import render_metric_chart
+from app.tax_risk_agent.reports.report_generator import ReportGenerator
+from app.tax_risk_agent.tools.metric_tool import MetricTool
+from app.tax_risk_agent.tools.rule_tool import RuleRetrievalTool
+from app.tax_risk_agent.tools.sql_tool import SafeSqlTool
+
+
+@dataclass(frozen=True)
+class RiskScenario:
+    code: str
+    title: str
+    metric: str
+    benchmark_metric: str
+    benchmark_field: str
+    operator: str
+    level: RiskLevel
+    rule_query: str
+    conclusion_template: str
+    suggestions: list[str]
+    invoice_category: str | None = None
+    cross_check: Callable[[dict, dict], Evidence | None] | None = None
+
+    
