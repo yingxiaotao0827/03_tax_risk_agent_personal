@@ -2,7 +2,7 @@
 import logging
 from typing import Protocol, runtime_checkable
 
-from app.tax_risk_agent.model.domain import RiskFinding
+from app.tax_risk_agent.models.domain import RiskFinding
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +18,7 @@ class LLMClient(Protocol):
     """基于结构化风险结论生成报告摘要"""
     raise NotImplementedError
 
-class offlineLLMClient:
+class OfflineLLMClient:
   """离线兜底摘要器
 
   本地没有 Qwen 服务或 LangChain 依赖不可用时,仍然能生成稳定摘要
@@ -65,8 +65,8 @@ def build_llm_client(provider: str, base_url: str, api_key: str, model: str) -> 
 
   if provider == "openai_compatible":
     try:
-      retrurn LangChainClient(base_url=base_url, api_key=api_key, model=model)
+      return LangChainLLMClient(base_url=base_url, api_key=api_key, model=model)
     except Exception as exc:
       logger.warning("Failed to initialize Qwen client, falling back to offline summarizer: %s", exc)
-      return offlineLLMClient()  
-  return offlineLLMClient()
+      return OfflineLLMClient()
+  return OfflineLLMClient()

@@ -21,14 +21,14 @@ class MetricTool:
 
     gross_margin = (revenue - cost) / revenue
     vat_burden_rate = vat_paid / revenue
-    travel_expense_rate = travel_expense / revenue
+    travel_expense_ratio = travel_expense / revenue
     consulting_expense_ratio = consulting_expense / revenue
     travel_per_employee = travel_expense / employee_count
 
     return {
       'gross_margin': _round(gross_margin),
       'vat_burden_rate': _round(vat_burden_rate),
-      'travel_expense_rate': _round(travel_expense_rate),
+      'travel_expense_ratio': _round(travel_expense_ratio),
       'consulting_expense_ratio': _round(consulting_expense_ratio),
       'travel_per_employee': _round(travel_per_employee)
     }

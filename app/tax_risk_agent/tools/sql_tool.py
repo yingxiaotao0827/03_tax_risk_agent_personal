@@ -26,7 +26,7 @@ class SafeSqlTool:
     )
 
     wrapped_sql = f" {normalized} " # 给 SQL 前后加空格，方便检查关键词;可以避免误伤普通单词
-    if any(token in wrapped_sql for token in blocked_tokens):
+    if any(token in wrapped_sql for token in blocked_tokens):# 如果在危险关键词列表中发现任何一个，就抛出异常
       raise ValueError("不允许 SQL query")
     
     return self.database.query(sql, params) # 通过数据库访问类执行查询，并返回结果

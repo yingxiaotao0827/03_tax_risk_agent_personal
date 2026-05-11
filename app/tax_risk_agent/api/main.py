@@ -63,6 +63,7 @@ def build_agent() -> TaxRiskDiagnosticAgent:
         report_generator=ReportGenerator(settings.report_dir),
         chart_dir=settings.report_dir / "charts",
         llm_client=build_llm_client(settings.llm_provider, settings.llm_base_url, settings.llm_api_key, settings.llm_model),
+        max_tool_rounds=settings.max_tool_rounds,
     )
 
 
